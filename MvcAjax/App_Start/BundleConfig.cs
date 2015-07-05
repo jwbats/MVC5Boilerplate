@@ -11,7 +11,8 @@ namespace MvcAjax
 		public static void RegisterBundles(BundleCollection bundles)
 		{
 			bundles.Add(new StyleBundle("~/Content/css").Include(
-				"~/Content/bootstrap.css"
+				"~/Content/bootstrap.css",
+				"~/Styles/style.css"
 			));
 
 			bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
