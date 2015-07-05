@@ -6,12 +6,29 @@ using System.Web.Mvc;
 
 namespace MvcAjax.Controllers
 {
-    public class HomeController : Controller
-    {
-        // GET: Home
-        public ActionResult Index()
-        {
-            return View();
-        }
-    }
+	public class HomeController : Controller
+	{
+
+		public ActionResult Index()
+		{
+			return View();
+		}
+
+
+
+	
+		public ActionResult Page1()
+		{
+			return View();
+		}
+
+
+
+	
+		public ActionResult Page2()
+		{
+			return View();
+		}
+
+	}
 }

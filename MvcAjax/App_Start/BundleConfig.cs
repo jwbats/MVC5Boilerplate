@@ -12,14 +12,18 @@ namespace MvcAjax
 		{
 			bundles.Add(new StyleBundle("~/Content/css").Include(
 				"~/Content/bootstrap.css",
-				"~/Styles/style.css"
+				"~/Content/style.css"
 			));
 
 			bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
+				"~/Scripts/shims.js",
+				"~/Scripts/utils.js",
 				"~/Scripts/jquery-1.9.1.js",
 				"~/Scripts/moment.js",
 				"~/Scripts/bootstrap.js",
-				"~/Scripts/bootstrap-datetimepicker.js"
+				"~/Scripts/bootstrap-datetimepicker.js",
+				"~/Scripts/webapi.js",
+				"~/Scripts/home.js"
 			));
 		}
 	}
