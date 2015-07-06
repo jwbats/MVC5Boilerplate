@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
+using MvcAjax.Helpers;
 using MvcAjax.Models;
 using MvcAjax.Repo;
 
@@ -13,33 +14,12 @@ namespace MvcAjax.Controllers
 	public class PersonController : ApiController
 	{
 
-		#region ================================================== Private Methods ==================================================
-
-		private ServiceResult<T> ExecuteSafely<T>(Func<ServiceResult<T>> func)
-		{
-			try
-			{
-				return func();
-			}
-			catch (Exception exception)
-			{
-				ServiceResult<T> serviceResult = new ServiceResult<T>(default(T), exception.ToString(), false);
-				// TO DO: log exception to database, using service result's datetime stamp
-				return serviceResult;
-			}
-		}
-
-		#endregion ================================================== Private Methods ==================================================
-
-
-
-
 		#region ================================================== Public Methods ==================================================
 
 		[HttpGet]
 		public ServiceResult<Person[]> RetrieveAllPersons()
 		{
-			return ExecuteSafely<Person[]>(() => {
+			return Helper.Instance.ExecuteSafely<Person[]>(() => {
 				return new ServiceResult<Person[]>(
 					MockPersonRepo.Instance.Persons.Values.ToArray()
 				);
@@ -52,7 +32,7 @@ namespace MvcAjax.Controllers
 		[HttpGet]
 		public ServiceResult<Person> RetrievePerson(int id)
 		{
-			return ExecuteSafely<Person>(() => {
+			return Helper.Instance.ExecuteSafely<Person>(() => {
 				return (MockPersonRepo.Instance.Persons.ContainsKey(id))
 					? new ServiceResult<Person>(MockPersonRepo.Instance.Persons[id])
 					: new ServiceResult<Person>(null, "Person id not found.", false);
@@ -65,7 +45,7 @@ namespace MvcAjax.Controllers
 		[HttpPost]
 		public ServiceResult<Person> AddPerson([FromBody]Person person)
 		{
-			return ExecuteSafely<Person>(() => {
+			return Helper.Instance.ExecuteSafely<Person>(() => {
 				bool containsKey = MockPersonRepo.Instance.Persons.ContainsKey(person.Id);
 
 				if (!containsKey)
@@ -85,7 +65,7 @@ namespace MvcAjax.Controllers
 		[HttpPut]
 		public ServiceResult<Person> UpdatePerson([FromBody]Person person)
 		{
-			return ExecuteSafely<Person>(() => {
+			return Helper.Instance.ExecuteSafely<Person>(() => {
 				bool containsKey = MockPersonRepo.Instance.Persons.ContainsKey(person.Id);
 
 				if (containsKey)
@@ -105,7 +85,7 @@ namespace MvcAjax.Controllers
 		[HttpDelete]
 		public ServiceResult<int> RemovePerson(int id)
 		{
-			return ExecuteSafely<int>(() => {
+			return Helper.Instance.ExecuteSafely<int>(() => {
 				bool containsKey = MockPersonRepo.Instance.Persons.ContainsKey(id);
 
 				if (containsKey)

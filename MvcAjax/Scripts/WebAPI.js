@@ -8,6 +8,11 @@
 				apiUrl += "/" + id;
 			}
 
+			// make sure the postdata is a string
+			if (typeof postData != "string"){
+				postData = JSON.stringify(postData);
+			}
+
 			// make request
 			return $.ajax({
 				method: httpMethod,
